@@ -9,9 +9,8 @@ from archivo_record import guardar_records, cargar_records
 from clases.cloud import Cloud
 from clases.player import Player
 from clases.enemy import Enemy
-from record import Record
+from clases.record import Record
 from data.constantes import SCREEN_WIDTH, SCREEN_HEIGHT, TIEMPO_ENTRE_DISPAROS, COLOR_DIA, COLOR_NOCHE, MENU_TEXT, screen
-
 
 def ingresar_nombre():
     """
@@ -67,6 +66,7 @@ def mostrar_menu():
 
     # Cargar registros
     records = cargar_records()
+    records.sort(key=lambda record: record.score, reverse=True)
 
     # Bandera para controlar la visibilidad del menú
     menu = True
@@ -241,6 +241,7 @@ def finalizar_juego(nivel_alcanzado):
 
     # Cargar los registros
     records = cargar_records()
+    records.sort(key=lambda record: record.score, reverse=True)
 
     # Inicializar una bandera para indicar si se ha establecido un nuevo récord.
     hay_record = None
@@ -256,7 +257,8 @@ def finalizar_juego(nivel_alcanzado):
 
     # Si no existen records el jugador ha marcado uno
     if len(records) == 0:
-        nuevo_record = Record(input("Introduce tu nombre: "), player.puntuacion)
+        nombre = ingresar_nombre()
+        nuevo_record = Record(nombre, player.puntuacion)
         records.append(nuevo_record)
 
     # Cogemos los 5 primeros y los guardamos

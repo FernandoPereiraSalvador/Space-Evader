@@ -1,7 +1,6 @@
 import os
 import pickle
-
-
+from clases.record import Record
 def cargar_records():
     """
     Carga los registros (records).
