@@ -10,7 +10,7 @@ from clases.cloud import Cloud
 from clases.player import Player
 from clases.enemy import Enemy
 from clases.record import Record
-from data.constantes import SCREEN_WIDTH, SCREEN_HEIGHT, TIEMPO_ENTRE_DISPAROS, COLOR_DIA, COLOR_NOCHE, MENU_TEXT, screen
+from data.constantes import SCREEN_WIDTH, SCREEN_HEIGHT, TIEMPO_ENTRE_DISPAROS, COLOR_DIA, COLOR_NOCHE, MENU_TEXT, SCREEN
 
 def ingresar_nombre():
     """
@@ -35,22 +35,22 @@ def ingresar_nombre():
                     nombre_temporal += event.unicode
 
         # Establece el color de fondo
-        screen.fill(COLOR_DIA)
+        SCREEN.fill(COLOR_DIA)
 
         # Configura la fuente y muestra un mensaje en pantalla
         font = pygame.font.Font(None, 36)
-        mensaje_texto = "¡Has conseguido un record!"
+        mensaje_texto = "You have achieved a record!"
         mensaje_surface = font.render(mensaje_texto, True, (255, 255, 255))
         mensaje_rect = mensaje_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
-        screen.blit(mensaje_surface, mensaje_rect)
+        SCREEN.blit(mensaje_surface, mensaje_rect)
 
         # Muestra un mensaje para ingresar el nombre
-        etiqueta_texto = font.render("Introduce tu nombre para registrarlo:", True, (255, 255, 255))
+        etiqueta_texto = font.render("Enter your name to register it:", True, (255, 255, 255))
         etiqueta_rect = etiqueta_texto.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 10))
         texto_nombre = font.render(nombre_temporal, True, (255, 255, 255))
         texto_rect = texto_nombre.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 30))
-        screen.blit(etiqueta_texto, etiqueta_rect)
-        screen.blit(texto_nombre, texto_rect)
+        SCREEN.blit(etiqueta_texto, etiqueta_rect)
+        SCREEN.blit(texto_nombre, texto_rect)
 
         # Actualiza
         pygame.display.flip()
@@ -66,6 +66,8 @@ def mostrar_menu():
 
     # Cargar registros
     records = cargar_records()
+
+    # Ordenar records por score
     records.sort(key=lambda record: record.score, reverse=True)
 
     # Bandera para controlar la visibilidad del menú
@@ -80,10 +82,10 @@ def mostrar_menu():
                 menu = False
 
         # Establece el color de fondo
-        screen.fill(COLOR_DIA)
+        SCREEN.fill(COLOR_DIA)
 
         # Muestra el texto del menú en pantalla
-        screen.blit(menu_text_surface, menu_text_rect)
+        SCREEN.blit(menu_text_surface, menu_text_rect)
 
         # Calcula la altura total de los registros y la posición de inicio
         total_height = len(records) * 40
@@ -93,13 +95,13 @@ def mostrar_menu():
         for record in records:
             record_text_surface = menu_font.render(f"{record.nombre_player} : {record.score}", True, (255, 255, 255))
             record_text_rect = record_text_surface.get_rect(center=(SCREEN_WIDTH // 2, start_y + -75))
-            screen.blit(record_text_surface, record_text_rect)
+            SCREEN.blit(record_text_surface, record_text_rect)
             start_y += 40
 
         # Muestra los sprites en pantalla, excepto el jugador
         for entity in all_sprites:
             if type(entity) != Player:
-                screen.blit(entity.surf, entity.rect)
+                SCREEN.blit(entity.surf, entity.rect)
 
         # # Actualiza la pantalla para mostrar los cambios
         pygame.display.flip()
@@ -124,23 +126,23 @@ def mostrar_pantalla_game_over(hay_record, nivel):
                 game_over = False
 
         # Establecer el color de fondo
-        screen.fill(COLOR_DIA)
+        SCREEN.fill(COLOR_DIA)
 
         # Configura la fuente y muestra la puntuación final y el nivel alcanzado
         font = pygame.font.Font(None, 36)
-        score_text = font.render(f'Puntuación final: {player.puntuacion}', True, (255, 255, 255))
-        level_text = font.render(f'Nivel alcanzado: {nivel}', True, (255, 255, 255))
-        instruccion = font.render('Haz clic en P para salir', True, (255, 255, 255))
-        record_text = font.render('¡¡¡Felicidades, has conseguido un nuevo récord!!!', True, (255, 255, 255))
+        score_text = font.render(f'Final score: {player.puntuacion}', True, (255, 255, 255))
+        level_text = font.render(f'Level reached: {nivel}', True, (255, 255, 255))
+        instruccion = font.render('Click P to exit', True, (255, 255, 255))
+        record_text = font.render('Congratulations, you have achieved a new record!!!!!', True, (255, 255, 255))
 
         # Si hay un récord, muestra un mensaje adicional
         if hay_record:
-            screen.blit(record_text, (SCREEN_WIDTH // 2 - record_text.get_width() // 2, 100))
+            SCREEN.blit(record_text, (SCREEN_WIDTH // 2 - record_text.get_width() // 2, 100))
 
         # Muestra la puntuación final, el nivel alcanzado y la instrucción en pantalla
-        screen.blit(score_text, (SCREEN_WIDTH // 2 - score_text.get_width() // 2, 200))
-        screen.blit(level_text, (SCREEN_WIDTH // 2 - level_text.get_width() // 2, 300))
-        screen.blit(instruccion, (SCREEN_WIDTH // 2 - instruccion.get_width() // 2, 500))
+        SCREEN.blit(score_text, (SCREEN_WIDTH // 2 - score_text.get_width() // 2, 200))
+        SCREEN.blit(level_text, (SCREEN_WIDTH // 2 - level_text.get_width() // 2, 300))
+        SCREEN.blit(instruccion, (SCREEN_WIDTH // 2 - instruccion.get_width() // 2, 500))
         pygame.display.flip()
 
 
@@ -198,17 +200,17 @@ def actualizar_ventana(tiempo_transcurrido, tiempo_ultimo_disparo, all_sprites, 
     enemies.update(player, all_sprites)
 
     # Establece el fondo
-    screen.fill(fondo_actual)
+    SCREEN.fill(fondo_actual)
 
     # Dibuja las nubes primero
     for entity in all_sprites:
         if isinstance(entity, Cloud):
-            screen.blit(entity.surf, entity.rect)
+            SCREEN.blit(entity.surf, entity.rect)
 
     # Dibuja al jugador y otros sprites
     for entity in all_sprites:
         if not isinstance(entity, Cloud):
-            screen.blit(entity.surf, entity.rect)
+            SCREEN.blit(entity.surf, entity.rect)
             if isinstance(entity, Disparo):
                 entity.update()
 
@@ -222,10 +224,10 @@ def actualizar_ventana(tiempo_transcurrido, tiempo_ultimo_disparo, all_sprites, 
 
     # Mostramos la puntuacion y el nivel actual en la parte superior izquierda
     font = pygame.font.Font(None, 36)
-    puntuacion_text = font.render(f'Puntuación: {player.puntuacion}', True, (255, 255, 255))
-    nivel_text = font.render(f'Nivel: {nivel}', True, (255, 255, 255))
-    screen.blit(puntuacion_text, (10, 10))
-    screen.blit(nivel_text, (250, 10))
+    puntuacion_text = font.render(f'Score: {player.puntuacion}', True, (255, 255, 255))
+    nivel_text = font.render(f'Level: {nivel}', True, (255, 255, 255))
+    SCREEN.blit(puntuacion_text, (10, 10))
+    SCREEN.blit(nivel_text, (250, 10))
 
     pygame.display.flip()
     clock.tick(30)
@@ -241,6 +243,8 @@ def finalizar_juego(nivel_alcanzado):
 
     # Cargar los registros
     records = cargar_records()
+
+    # Ordenar records por score
     records.sort(key=lambda record: record.score, reverse=True)
 
     # Inicializar una bandera para indicar si se ha establecido un nuevo récord.

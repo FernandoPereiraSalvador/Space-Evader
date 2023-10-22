@@ -16,7 +16,7 @@ COLOR_NOCHE = (0, 0, 0)
 
 
 # Texto que se muestra en el menú del juego.
-MENU_TEXT = "Presiona P para empezar"
+MENU_TEXT = "Press P to start"
 
 # Crea una ventana de juego con las dimensiones definidas.
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
