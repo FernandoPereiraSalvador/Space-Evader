@@ -1,6 +1,17 @@
-# Pygame parte 2
-Juego en pygame, en el que el jugador tiene que ir esquivando misiles para conseguir la máxima puntuación posible.
+<div align="center">
+  <h1>Space Evader</h1>
+   <img src="https://imgur.com/TDIcPKH.png" alt="Texto alternativo" width="450" height="450">
+</div>
 
-# Funcionalidades extras
-1. __Disparos:__ Se ha añadido un sistema de disparos, para que el jugador pueda destruir los misiles, para disparar hay que hacer clic en la barra espaciadora (hay que esperar un tiempo entre cada disparo)
-2. __Records:__ Se ha añadido un sistema para registrar tu nombre cuando consiguas un record, luego este aparecera en el menu del juego junto con el resto (solo pueden haber 5 records a la vez)
+<p>Embark on an adrenaline-pumping journey in this high-octane game where your reflexes and skills are put to the ultimate test. Your mission? Dodge a relentless barrage of missiles while racking up points to secure a coveted spot among the top 5 champions. Are you ready to outmaneuver the odds and soar to greatness?"</p>
+
+## Images
+
+1. Records
+   <div align = "center">
+     <img src="https://imgur.com/p7zEhEJ.png" alt="Texto alternativo" width="450" height="450">
+   </div>
+2. New record
+   <div align = "center">
+     <img src="https://imgur.com/DpGTad6.png" alt="Texto alternativo" width="450" height="450">
+   </div>
